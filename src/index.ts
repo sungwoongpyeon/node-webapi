@@ -4,7 +4,6 @@ import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
 import compression from 'compression';
 import cors from 'cors';
-
 import router from './router';
 
 //import is a statement used in ECMAScript modules (ES modules), which is the standard module system introduced in ES6 (ES2015)
@@ -44,12 +43,9 @@ app.use(cors({
 
 /* 
 Express cannot destructure request body so that we need a middleware.
-
 To setup middleware that tells Express to parse json before the actual data hits the function that we are using here to handle the request.
-
 Think of shared code that runs before every endpoint callback that you have defined. 
 */
-
 app.use(compression());
 app.use(cookieParser());
 app.use(bodyParser.json());

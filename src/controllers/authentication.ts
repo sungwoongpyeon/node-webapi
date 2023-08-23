@@ -17,12 +17,14 @@ export const login = async (req: express.Request, res: express.Response) => {
       return res.sendStatus(400);
     }
 
+    // Check password
     const expectedHash = authentication(user.authentication.salt, password);
     
     if (user.authentication.password != expectedHash) {
       return res.sendStatus(403);
     }
 
+    // Create session
     const salt = random();
     user.authentication.sessionToken = authentication(salt, user._id.toString());
 
@@ -39,7 +41,8 @@ export const login = async (req: express.Request, res: express.Response) => {
 
     // Session Management: Cookies are commonly used to manage user sessions. 
     // By setting a cookie with the authentication session token, the server can associate the user's session token with the user's browser. 
-    // This allows the server to recognize the user and maintain their authenticated state across multiple requests without requiring the user to reauthenticate for each request.    
+    // This allows the server to recognize the user and maintain their authenticated state across multiple requests 
+    // without requiring the user to reauthenticate for each request.    
     res.cookie('NODE-DEMO-AUTH', user.authentication.sessionToken, { domain: 'localhost', path: '/' });
 
     return res.status(200).json(user).end();

@@ -15,4 +15,10 @@ export const authentication = (salt: string, password: string): string => {
   return crypto.createHmac('sha256', [salt, password].join('/')).update(SECRET).digest('hex');
 }
 
+// crypto.randomBytes(128): This part of the code calls the randomBytes() function from the crypto module. 
+// The function generates a specified number of cryptographically secure random bytes. In this case, it generates 128 random bytes.
+// .toString('base64'): After generating the random bytes, the toString() method is called on the byte sequence. 
+// The 'base64' argument specifies that the bytes should be encoded in Base64 format. 
+// Base64 encoding converts binary data into a text representation, making it suitable for transmission or storage 
+//in text-based formats like JSON or XML.
 export const random = () => crypto.randomBytes(128).toString('base64');
